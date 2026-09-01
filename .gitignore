@@ -42,4 +42,3 @@ next-env.d.ts
 
 # virtual environment
 .venv/
-.env.local

@@ -105,41 +105,32 @@ export default function Home() {;
   const [isRecording, setIsRecording] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  type Suggestion = {
+    control: string;
+    current: number;
+    suggested: number;
+    direction: string;
+    difference: number;
+  };
+
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const recordedChunksRef = useRef<Blob[]>([]);
-  const [gt10Settings, setGt10Settings] = useState({
-  preamp: {
-    model: "T-AMP LEAD",
-    gain: 50,
-    bass: 50,
-    mids: 50,
-    treble: 50,
-    presence: 50,
-    level: 50,
-  },
-
-  distortion: {
-    enabled: false,
-    type: "OD-1",
-    drive: 50,
-    tone: 50,
-    level: 50,
-  },
-
-  delay: {
-    enabled: false,
-    time: 400,
-    feedback: 30,
-    level: 30,
-  },
-
-  reverb: {
-    enabled: false,
-    level: 30,
-  },
-});
+  const [analysisError, setAnalysisError] = useState("");
+  const [rigControls, setRigControls] = useState({
+    gain: { enabled: true, value: 50 },
+    bass: { enabled: true, value: 50 },
+    mids: { enabled: true, value: 50 },
+    treble: { enabled: true, value: 50 },
+    presence: { enabled: false, value: 50 },
+    level: { enabled: false, value: 50 },
+    drive: { enabled: false, value: 50 },
+    tone: { enabled: false, value: 50 },
+    reverb: { enabled: false, value: 30 },
+    delay: { enabled: false, value: 30 },
+    feedback: { enabled: false, value: 30 },
+  });
 
   const [guitarControls, setGuitarControls] = useState({
 
@@ -152,19 +143,31 @@ export default function Home() {;
       value: 10,
     },
   });
-  function changePreampSetting(
-    setting: keyof typeof gt10Settings.preamp,
-    value: string | number
+
+  function toggleRigControl(
+    control: keyof typeof rigControls
   ) {
-    setGt10Settings((current) => ({
+    setRigControls((current) => ({
       ...current,
-      preamp: {
-        ...current.preamp,
-        [setting]: value,
+      [control]: {
+        ...current[control],
+        enabled: !current[control].enabled,
       },
     }));
   }
 
+  function changeRigControl(
+    control: keyof typeof rigControls,
+    value: number
+  ) {
+    setRigControls((current) => ({
+      ...current,
+      [control]: {
+        ...current[control],
+        value,
+      },
+    }));
+  }
   function handleReferenceUpload(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
@@ -193,35 +196,9 @@ export default function Home() {;
   }
 
 
-  function toggleDistortion() {
-    setGt10Settings((current) => ({
-      ...current,
-      distortion: {
-        ...current.distortion,
-        enabled: !current.distortion.enabled,
-      },
-    }));
-  }
 
-  function toggleDelay() {
-    setGt10Settings((current) => ({
-      ...current,
-      delay: {
-        ...current.delay,
-        enabled: !current.delay.enabled,
-      },
-    }));
-  }
 
-  function toggleReverb() {
-    setGt10Settings((current) => ({
-      ...current,
-      reverb: {
-        ...current.reverb,
-        enabled: !current.reverb.enabled,
-      },
-    }));
-  }
+
   async function saveRig() {
     setSaveStatus("saving");
 
@@ -240,7 +217,7 @@ export default function Home() {;
       user_id: user.id,
       pickup,
       guitar_controls: guitarControls,
-      gt10_settings: gt10Settings,
+      gt10_settings: rigControls,
     });
 
     if (error) {
@@ -287,7 +264,7 @@ export default function Home() {;
       if (rig) {
         setPickup(rig.pickup);
         setGuitarControls(rig.guitar_controls);
-        setGt10Settings(rig.gt10_settings);
+        setRigControls(rig.gt10_settings);
       }
 
       setLoadingRig(false);
@@ -373,6 +350,7 @@ export default function Home() {;
     router.push("/login");
   }
   async function analyzeTone() {
+    setAnalysisError("");
     if (!referenceAudio || !recordedAudio) return;
 
     setIsAnalyzing(true);
@@ -392,7 +370,7 @@ export default function Home() {;
       JSON.stringify({
         pickup,
         guitarControls,
-        gt10Settings,
+        rigControls,
       })
     );
 
@@ -413,9 +391,8 @@ export default function Home() {;
     } catch (error) {
       console.error(error);
 
-      setSuggestions([
-        "Tone analysis is not connected yet.",
-      ]);
+      setSuggestions([]);
+      setAnalysisError("Tone analysis failed.");
     } finally {
       setIsAnalyzing(false);
     }
@@ -619,269 +596,96 @@ export default function Home() {;
             </div>
           </section>
 
-          {/* Amp */}
-          {/* BOSS GT-10 */}
-          <section className="overflow-hidden rounded-[26px] border-4 border-neutral-600 bg-gradient-to-b from-zinc-300 via-zinc-400 to-zinc-500 p-5 text-neutral-950 shadow-2xl">
-            {/* Top branding */}
-            <div className="mb-5 flex items-center justify-between">
-              <div className="flex items-end gap-3">
-                <h2 className="text-3xl font-black tracking-tight">
-                  BOSS GT-10
-                </h2>
-
-                <span className="pb-1 text-xs font-bold uppercase tracking-wider">
-                  Guitar Effects Processor
-                </span>
-              </div>
-
-              <span className="rounded border border-neutral-700 bg-neutral-800 px-3 py-1 text-xs font-bold text-white">
-                PROCESSOR
-              </span>
-            </div>
-
-            {/* Main control area */}
-            <div className="grid gap-5">
-              {/* Left panel */}
-              <div className="rounded-xl border border-neutral-700 bg-neutral-800/20 p-4">
-                  
-
-                {/* Amp model */}
-                <div className="mt-5">
-                  <label className="mb-2 block text-xs font-black uppercase tracking-wider">
-                    Preamp Model
-                  </label>
-
-                  <select
-                    value={gt10Settings.preamp.model}
-                    onChange={(e) =>
-                      changePreampSetting("model", e.target.value)
-                    }
-                    className="w-full rounded border-2 border-neutral-700 bg-neutral-950 px-4 py-3 font-mono text-sm text-cyan-300 outline-none"
-                  >
-                    <optgroup label="JC CLEAN">
-                      <option>BOSS Clean</option>
-                      <option>JC-120</option>
-                      <option>Jazz Combo</option>
-                      <option>Full Range</option>
-                    </optgroup>
-
-                    <optgroup label="TW CLEAN">
-                      <option>Clean TWIN</option>
-                      <option>Pro Crunch</option>
-                      <option>Tweed</option>
-                      <option>DELUX Crnch</option>
-                    </optgroup>
-
-                    <optgroup label="CRUNCH">
-                      <option>BOSS Crunch</option>
-                      <option>Blues</option>
-                      <option>Wild Crunch</option>
-                      <option>StackCrunch</option>
-                    </optgroup>
-
-                    <optgroup label="COMBO">
-                      <option>VO Drive</option>
-                      <option>VO Lead</option>
-                      <option>VO Clean</option>
-                    </optgroup>
-
-                    <optgroup label="MATCH">
-                      <option>MATCH Drive</option>
-                      <option>Fat MATCH</option>
-                      <option>MATCH Lead</option>
-                    </optgroup>
-
-                    <optgroup label="BG LEAD">
-                      <option>BG Lead</option>
-                      <option>BG Drive</option>
-                      <option>BG Rhythm</option>
-                    </optgroup>
-
-                    <optgroup label="MS CLASSIC">
-                      <option>MS1959 I</option>
-                      <option>MS1959 I+II</option>
-                    </optgroup>
-
-                    <optgroup label="MS MODERN">
-                      <option>MS HiGain</option>
-                      <option>MS Scoop</option>
-                    </optgroup>
-
-                    <optgroup label="R-FIER">
-                      <option>R-FIER Vnt</option>
-                      <option>R-FIER Mdn</option>
-                      <option>R-FIER Cln</option>
-                    </optgroup>
-
-                    <optgroup label="T-AMP">
-                      <option>T-AMP Lead</option>
-                      <option>T-AMP Crnch</option>
-                      <option>T-AMP Clean</option>
-                    </optgroup>
-
-                    <optgroup label="HI-GAIN">
-                      <option>BOSS Drive</option>
-                      <option>SLDN</option>
-                      <option>Lead Stack</option>
-                      <option>Heavy Lead</option>
-                    </optgroup>
-
-                    <optgroup label="METAL">
-                      <option>BOSS Metal</option>
-                      <option>5150 Drive</option>
-                      <option>Metal Lead</option>
-                      <option>Edge Lead</option>
-                    </optgroup>
-
-                    <optgroup label="OTHER">
-                      <option>Custom</option>
-                      <option>Through</option>
-                    </optgroup>
-                  </select>
-                </div>
-
-                {/* Preamp knobs */}
-                <div className="mt-7 flex flex-wrap justify-center gap-6">
-                  <Knob
-                    label="Gain"
-                    value={gt10Settings.preamp.gain}
-                    max={100}
-                    step={1}
-                    onChange={(value) =>
-                      changePreampSetting("gain", value)
-                    }
-                  />
-
-                  <Knob
-                    label="Bass"
-                    value={gt10Settings.preamp.bass}
-                    max={100}
-                    step={1}
-                    onChange={(value) =>
-                      changePreampSetting("bass", value)
-                    }
-                  />
-
-                  <Knob
-                    label="Middle"
-                    value={gt10Settings.preamp.mids}
-                    max={100}
-                    step={1}
-                    onChange={(value) =>
-                      changePreampSetting("mids", value)
-                    }
-                  />
-
-                  <Knob
-                    label="Treble"
-                    value={gt10Settings.preamp.treble}
-                    max={100}
-                    step={1}
-                    onChange={(value) =>
-                      changePreampSetting("treble", value)
-                    }
-                  />
-
-                  <Knob
-                    label="Presence"
-                    value={gt10Settings.preamp.presence}
-                    max={100}
-                    step={1}
-                    onChange={(value) =>
-                      changePreampSetting("presence", value)
-                    }
-                  />
-
-                  <Knob
-                    label="Level"
-                    value={gt10Settings.preamp.level}
-                    max={100}
-                    step={1}
-                    onChange={(value) =>
-                      changePreampSetting("level", value)
-                    }
-                  />
-                </div>
-              </div>
-
-            </div>
-
-            {/* Effect buttons */}
-            <div className="mt-5 flex flex-wrap gap-3">
-              <button
-                onClick={toggleDistortion}
-                className={`rounded-lg border px-4 py-2 text-xs font-black transition ${
-                  gt10Settings.distortion.enabled
-                    ? "border-red-500 bg-red-500/20 text-red-700"
-                    : "border-neutral-700 bg-neutral-800 text-neutral-300"
-                }`}
-              >
-                OD / DISTORTION
-                <span className="ml-2">
-                  {gt10Settings.distortion.enabled ? "ON" : "OFF"}
-                </span>
-              </button>
-
-              <button
-                onClick={toggleDelay}
-                className={`rounded-lg border px-4 py-2 text-xs font-black transition ${
-                  gt10Settings.delay.enabled
-                    ? "border-red-500 bg-red-500/20 text-red-700"
-                    : "border-neutral-700 bg-neutral-800 text-neutral-300"
-                }`}
-              >
-                DELAY
-                <span className="ml-2">
-                  {gt10Settings.delay.enabled ? "ON" : "OFF"}
-                </span>
-              </button>
-
-              <button
-                onClick={toggleReverb}
-                className={`rounded-lg border px-4 py-2 text-xs font-black transition ${
-                  gt10Settings.reverb.enabled
-                    ? "border-red-500 bg-red-500/20 text-red-700"
-                    : "border-neutral-700 bg-neutral-800 text-neutral-300"
-                }`}
-              >
-                REVERB
-                <span className="ml-2">
-                  {gt10Settings.reverb.enabled ? "ON" : "OFF"}
-                </span>
-              </button>
-            </div>
-            {/* Metal divider */}
-            <div className="my-5 h-5 rounded border border-neutral-700 bg-gradient-to-b from-neutral-200 via-neutral-400 to-neutral-600 shadow-md" />
-          </section>
-
-
-
-          {/* Current configuration */}
+          {/* Adjustable rig controls */}
           <section className="rounded-2xl border border-neutral-800 bg-neutral-900 p-7">
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-              Current configuration
-            </p>
+            <div className="mb-8">
+              <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">
+                Rig controls
+              </p>
 
-            <div className="mt-5 grid gap-6 md:grid-cols-3">
-              <div>
-                <p className="text-xs text-neutral-500">Pickup</p>
-                <p className="mt-1 font-medium">{pickup}</p>
-              </div>
+              <h2 className="mt-1 text-2xl font-semibold">
+                What can you adjust?
+              </h2>
 
-              <div>
-                <p className="text-xs text-neutral-500">Amplifier</p>
-                <p className="mt-1 font-medium">BOSS GT-10</p>
-              </div>
+              <p className="mt-2 max-w-2xl text-sm text-neutral-400">
+                Enable the controls available on your rig. Tone Finder will only suggest
+                changes to enabled controls.
+              </p>
+            </div>
 
-              <div>
-                <p className="text-xs text-neutral-500">Amp EQ</p>
-                <p className="mt-1 font-medium">
-                  B {gt10Settings.preamp.bass} · M {gt10Settings.preamp.mids} · T{" "}
-                  {gt10Settings.preamp.treble}
-                </p>
-              </div>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {(
+                Object.entries(rigControls) as [
+                  keyof typeof rigControls,
+                  (typeof rigControls)[keyof typeof rigControls]
+                ][]
+              ).map(([name, control]) => {
+                const label =
+                  name === "mids"
+                    ? "Middle"
+                    : name === "treble"
+                      ? "High Treble"
+                      : name.charAt(0).toUpperCase() + name.slice(1);
+
+                return (
+                  <div
+                    key={name}
+                    className={`rounded-xl border p-5 transition ${
+                      control.enabled
+                        ? "border-neutral-600 bg-neutral-800"
+                        : "border-neutral-800 bg-neutral-950/50"
+                    }`}
+                  >
+                    {/* Control header */}
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-semibold text-white">
+                          {label}
+                        </p>
+
+                        <p className="mt-1 text-xs text-neutral-500">
+                          {control.enabled
+                            ? "Available for suggestions"
+                            : "Not available"}
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => toggleRigControl(name)}
+                        className={`rounded-lg border px-3 py-2 text-xs font-semibold transition ${
+                          control.enabled
+                            ? "border-white bg-white text-black"
+                            : "border-neutral-700 bg-neutral-900 text-neutral-400 hover:border-neutral-500"
+                        }`}
+                      >
+                        {control.enabled ? "Enabled" : "Disabled"}
+                      </button>
+                    </div>
+
+                    {/* Only show knob when enabled */}
+                    {control.enabled && (
+                      <div className="mt-7 flex justify-center">
+                        <Knob
+                          label={label}
+                          value={control.value}
+                          max={100}
+                          step={1}
+                          onChange={(value) =>
+                            changeRigControl(name, value)
+                          }
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </section>
+
+
+
+          
           <button
             onClick={saveRig}
             disabled={saveStatus === "saving"}
@@ -1057,16 +861,41 @@ export default function Home() {;
             </p>
 
             <div className="space-y-3">
-              {suggestions.map((suggestion, index) => (
+              {suggestions.map((suggestion) => (
                 <div
-                  key={index}
-                  className="rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm text-neutral-200"
+                  key={suggestion.control}
+                  className="flex items-center justify-between rounded-lg border border-neutral-800 bg-neutral-900 p-4"
                 >
-                  {suggestion}
+                  <div>
+                    <p className="font-semibold capitalize">
+                      {suggestion.control === "mids"
+                        ? "Middle"
+                        : suggestion.control}
+                    </p>
+
+                    <p className="mt-1 text-sm text-neutral-500">
+                      {suggestion.direction}
+                    </p>
+                  </div>
+
+                  <div className="text-right">
+                    <p className="font-semibold">
+                      {suggestion.current} → {suggestion.suggested}
+                    </p>
+
+                    <p className="mt-1 text-xs text-neutral-500">
+                      spectral difference {suggestion.difference.toFixed(2)}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
+        )}
+        {analysisError && (
+          <p className="mt-4 text-sm text-red-400">
+            {analysisError}
+          </p>
         )}
       </section>
     </main>
