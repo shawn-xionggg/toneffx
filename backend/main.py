@@ -112,18 +112,6 @@ def get_band_energy(audio, sample_rate):
 
 
 
-
-
-
-    return {
-        "flatness_difference": float(
-            np.median(flatness_differences)
-        ),
-        "crest_factor_difference": float(
-            np.median(crest_differences)
-        ),
-    }
-
 def filter_alignment(
     reference_chroma,
     recording_chroma,

@@ -131,17 +131,12 @@ export default function Home() {;
   const recordedChunksRef = useRef<Blob[]>([]);
   const [analysisError, setAnalysisError] = useState("");
   const [rigControls, setRigControls] = useState({
-    gain: { enabled: true, value: 50 },
     bass: { enabled: true, value: 50 },
     mids: { enabled: true, value: 50 },
     treble: { enabled: true, value: 50 },
     presence: { enabled: false, value: 50 },
     level: { enabled: false, value: 50 },
-    drive: { enabled: false, value: 50 },
     tone: { enabled: false, value: 50 },
-    reverb: { enabled: false, value: 30 },
-    delay: { enabled: false, value: 30 },
-    feedback: { enabled: false, value: 30 },
   });
 
   const [guitarControls, setGuitarControls] = useState({
