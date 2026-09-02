@@ -85,6 +85,7 @@ function Knob({
 const supabase = createClient();
 
 export default function Home() {;
+  const [previousAttempt, setPreviousAttempt] = useState<AnalysisAttempt | null>(null);
   const [accountEmail, setAccountEmail] = useState("");
   const [loadingRig, setLoadingRig] = useState(true);
   const router = useRouter();
@@ -113,8 +114,19 @@ export default function Home() {;
     difference: number;
   };
 
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  type AnalysisAttempt = {
+    rigControls: Record<
+      string,
+      {
+        enabled: boolean;
+        value: number;
+      }
+    >;
 
+    errors: Record<string, number>;
+  };
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [toneCloseness, setToneCloseness] = useState<number | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const recordedChunksRef = useRef<Blob[]>([]);
   const [analysisError, setAnalysisError] = useState("");
@@ -177,6 +189,9 @@ export default function Home() {;
 
     setReferenceAudio(file);
     setSuggestions([]);
+
+    // New target = new feedback session
+    setPreviousAttempt(null);
   }
   function handleRecordingUpload(
     event: React.ChangeEvent<HTMLInputElement>
@@ -373,7 +388,12 @@ export default function Home() {;
         rigControls,
       })
     );
-
+    if (previousAttempt) {
+      formData.append(
+        "previous_attempt",
+        JSON.stringify(previousAttempt)
+      );
+    }
     try {
       const response = await fetch("http://localhost:8000/analyze-tone", {
         method: "POST",
@@ -385,12 +405,16 @@ export default function Home() {;
       }
 
       const result = await response.json();
-
+      setToneCloseness(result.tone_closeness ?? null);
       console.log("Backend result:", result);
+
       setSuggestions(result.suggestions ?? []);
+
+      if (result.attempt) {
+        setPreviousAttempt(result.attempt);
+      }
     } catch (error) {
       console.error(error);
-
       setSuggestions([]);
       setAnalysisError("Tone analysis failed.");
     } finally {
@@ -414,7 +438,7 @@ export default function Home() {;
 
             <div>
               <p className="font-semibold leading-none text-white">
-                Teffx
+                Toneffx
               </p>
 
               <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
@@ -852,7 +876,32 @@ export default function Home() {;
             </p>
           )}
         </div>
+          {toneCloseness !== null && (
+            <div className="mt-6 rounded-xl border border-neutral-700 bg-neutral-950 p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                Tone match
+              </p>
 
+              <div className="mt-3 flex items-end gap-2">
+                <span className="text-4xl font-semibold text-white">
+                  {toneCloseness}
+                </span>
+
+                <span className="mb-1 text-lg text-neutral-500">
+                  %
+                </span>
+              </div>
+
+              <div className="mt-4 h-2 overflow-hidden rounded-full bg-neutral-800">
+                <div
+                  className="h-full rounded-full bg-white transition-all duration-500"
+                  style={{
+                    width: `${toneCloseness}%`,
+                  }}
+                />
+              </div>
+            </div>
+          )}
         {/* Suggestions */}
         {suggestions.length > 0 && (
           <div className="mt-6 rounded-xl border border-neutral-700 bg-neutral-950 p-5">

@@ -109,6 +109,21 @@ def get_band_energy(audio, sample_rate):
 
     return band_energy
 
+
+
+
+
+
+
+    return {
+        "flatness_difference": float(
+            np.median(flatness_differences)
+        ),
+        "crest_factor_difference": float(
+            np.median(crest_differences)
+        ),
+    }
+
 def filter_alignment(
     reference_chroma,
     recording_chroma,
@@ -165,6 +180,7 @@ def filter_alignment(
         np.array(confident_path),
         similarities,
     )
+
 
 def collapse_alignment(warping_path):
     matches = {}
@@ -306,12 +322,257 @@ def get_adjustment_size(difference):
 
     return 8
 
+def generate_next_suggestion(
+    errors,
+    rig_controls,
+    previous_attempt=None,
+):
+    # -----------------------------------
+    # 1. Try to learn from the last change
+    # -----------------------------------
+
+    if previous_attempt:
+        previous_controls = previous_attempt.get(
+            "rigControls",
+            {},
+        )
+
+        previous_errors = previous_attempt.get(
+            "errors",
+            {},
+        )
+
+        changed_controls = []
+
+        for name, current_control in rig_controls.items():
+            previous_control = previous_controls.get(name)
+
+            if not previous_control:
+                continue
+
+            current_value = current_control.get("value", 50)
+            previous_value = previous_control.get("value", 50)
+
+            if current_value != previous_value:
+                changed_controls.append(name)
+
+        # We can only cleanly learn cause/effect if ONE knob changed.
+        if len(changed_controls) == 1:
+            name = changed_controls[0]
+
+            control = rig_controls.get(name)
+
+            if (
+                name in errors
+                and name in previous_errors
+                and control
+                and control.get("enabled")
+            ):
+                current_value = control.get("value", 50)
+
+                previous_value = previous_controls[name].get(
+                    "value",
+                    50,
+                )
+
+                current_error = errors[name]
+                previous_error = previous_errors[name]
+
+                knob_change = (
+                    current_value - previous_value
+                )
+
+                error_change = (
+                    current_error - previous_error
+                )
+
+                # How much does one knob unit affect this error?
+                if knob_change != 0:
+                    sensitivity = (
+                        error_change / knob_change
+                    )
+
+                    scale = CONTROL_ERROR_SCALES.get(
+                        name,
+                        1,
+                    )
+
+                    # Only trust the learned response if it actually
+                    # produced a measurable change.
+                    if (
+                        abs(sensitivity) > 0.01
+                        and abs(current_error) >= scale
+                    ):
+                        desired_change = (
+                            -current_error / sensitivity
+                        )
+
+                        # Don't make giant jumps.
+                        desired_change = float(
+                            np.clip(
+                                desired_change,
+                                -10,
+                                10,
+                            )
+                        )
+
+                        step = int(round(desired_change))
+
+                        if step == 0:
+                            step = (
+                                1
+                                if desired_change > 0
+                                else -1
+                            )
+
+                        suggested_value = clamp(
+                            current_value + step
+                        )
+
+                        if suggested_value != current_value:
+                            return [{
+                                "control": name,
+                                "current": current_value,
+                                "suggested": suggested_value,
+                                "direction": (
+                                    "increase"
+                                    if suggested_value > current_value
+                                    else "decrease"
+                                ),
+                                "difference": current_error,
+                                "learned": True,
+                                "sensitivity": float(sensitivity),
+                            }]
+
+    # -----------------------------------
+    # 2. No usable history yet.
+    #    Pick ONE control to experiment with.
+    # -----------------------------------
+
+    target = choose_target_control(
+        errors,
+        rig_controls,
+    )
+
+    if target is None:
+        return []
+
+    control = rig_controls[target]
+
+    current_value = control.get("value", 50)
+    error = errors[target]
+
+    # Small exploratory movement.
+    step_size = 5
+
+    # Positive = recording has too much of that feature.
+    # Negative = recording has too little.
+    if error > 0:
+        suggested_value = clamp(
+            current_value - step_size
+        )
+    else:
+        suggested_value = clamp(
+            current_value + step_size
+        )
+
+    if suggested_value == current_value:
+        return []
+
+    return [{
+        "control": target,
+        "current": current_value,
+        "suggested": suggested_value,
+        "direction": (
+            "increase"
+            if suggested_value > current_value
+            else "decrease"
+        ),
+        "difference": error,
+        "learned": False,
+    }]
+
+def calculate_tone_closeness(
+    band_differences,
+    brightness_difference,
+):
+    # How much difference we consider "very large"
+    # for each measurement.
+    scales = {
+        "bass": 10.0,
+        "low_mids": 10.0,
+        "mids": 10.0,
+        "upper_mids": 10.0,
+        "treble": 10.0,
+        "high_treble": 10.0,
+        "presence": 10.0,
+    }
+
+    weights = {
+        "bass": 1.0,
+        "low_mids": 1.0,
+        "mids": 1.2,
+        "upper_mids": 1.2,
+        "treble": 1.2,
+        "high_treble": 0.8,
+        "presence": 0.8,
+    }
+
+    weighted_error = 0
+    total_weight = 0
+
+    for name, scale in scales.items():
+        difference = abs(
+            band_differences.get(name, 0)
+        )
+
+        normalized_error = min(
+            difference / scale,
+            1.0,
+        )
+
+        weight = weights[name]
+
+        weighted_error += (
+            normalized_error * weight
+        )
+
+        total_weight += weight
+
+    # Brightness uses Hz, so it needs its own scale.
+    brightness_error = min(
+        abs(brightness_difference) / 1500,
+        1.0,
+    )
+
+    brightness_weight = 1.0
+
+    weighted_error += (
+        brightness_error * brightness_weight
+    )
+
+    total_weight += brightness_weight
+
+    average_error = (
+        weighted_error / total_weight
+    )
+
+    closeness = (
+        1 - average_error
+    ) * 100
+
+    return round(
+        max(0, min(100, closeness)),
+        1,
+    )
 
 def generate_eq_suggestions(
     band_differences,
+    brightness_difference,
     rig_controls,
 ):
     suggestions = []
+
 
     # Combine related frequency bands into the controls
     # a normal amp/modeler is likely to have.
@@ -371,19 +632,127 @@ def generate_eq_suggestions(
             "direction": direction,
             "difference": difference,
         })
+    tone_control = rig_controls.get("tone")
+
+    if tone_control and tone_control.get("enabled"):
+        current_value = tone_control.get("value", 50)
+
+        if brightness_difference < -150:
+            suggestions.append({
+                "control": "tone",
+                "current": current_value,
+                "suggested": clamp(current_value + 5),
+                "direction": "increase",
+                "difference": brightness_difference,
+            })
+
+        elif brightness_difference > 150:
+            suggestions.append({
+                "control": "tone",
+                "current": current_value,
+                "suggested": clamp(current_value - 5),
+                "direction": "decrease",
+                "difference": brightness_difference,
+            })
+
+
+    for control_name in ["gain", "drive"]:
+        control = rig_controls.get(control_name)
+
+        if not control or not control.get("enabled"):
+            continue
+
+        current_value = control.get("value", 50)
 
     return suggestions
+CONTROL_ERROR_SCALES = {
+    "bass": 3.0,
+    "mids": 3.0,
+    "treble": 3.0,
+    "presence": 2.0,
+    "tone": 250.0,
+}
 
+
+def build_control_errors(
+    band_differences,
+    brightness_difference,
+):
+    return {
+        "bass": float(
+            band_differences.get("bass", 0)
+        ),
+
+        # Weight the center-mid band more heavily
+        "mids": float(
+            0.25 * band_differences.get("low_mids", 0)
+            + 0.50 * band_differences.get("mids", 0)
+            + 0.25 * band_differences.get("upper_mids", 0)
+        ),
+
+        "treble": float(
+            0.7 * band_differences.get("treble", 0)
+            + 0.3 * band_differences.get("high_treble", 0)
+        ),
+
+        "presence": float(
+            0.3 * band_differences.get("high_treble", 0)
+            + 0.7 * band_differences.get("presence", 0)
+        ),
+
+        "tone": float(brightness_difference),
+    }
+
+
+def choose_target_control(
+    errors,
+    rig_controls,
+):
+    candidates = []
+
+    for name, scale in CONTROL_ERROR_SCALES.items():
+        control = rig_controls.get(name)
+
+        if not control or not control.get("enabled"):
+            continue
+
+        error = errors.get(name, 0)
+
+        # Makes errors with different units comparable.
+        score = abs(error) / scale
+
+        # Ignore small differences.
+        if score >= 1:
+            candidates.append((score, name))
+
+    if not candidates:
+        return None
+
+    candidates.sort(reverse=True)
+
+    return candidates[0][1]
 @app.post("/analyze-tone")
 async def analyze_tone(
     reference: UploadFile = File(...),
     recording: UploadFile = File(...),
     rig: str = Form(...),
+    previous_attempt: str | None = Form(None),
 ):
     reference_bytes = await reference.read()
     recording_bytes = await recording.read()
 
     rig_data = json.loads(rig)
+
+    rig_controls = rig_data.get(
+        "rigControls",
+        {},
+    )
+
+    previous_attempt_data = (
+        json.loads(previous_attempt)
+        if previous_attempt
+        else None
+    )
 
     with tempfile.TemporaryDirectory() as temp_dir:
         temp_dir = Path(temp_dir)
@@ -477,28 +846,59 @@ async def analyze_tone(
             recording_bands,
             collapsed_path,
         )
+
+        tone_closeness = calculate_tone_closeness(
+            band_differences,
+            brightness_difference,
+        )
+
+        control_errors = build_control_errors(
+            band_differences,
+            brightness_difference,
+        )
+
+        suggestions = generate_next_suggestion(
+            control_errors,
+            rig_controls,
+            previous_attempt_data,
+        )
+
         rig_controls = rig_data.get("rigControls", {})
 
-        suggestions = generate_eq_suggestions(
-            band_differences,
-            rig_controls,
+        rig_controls = rig_data.get(
+            "rigControls",
+            {},
         )
+        control_errors = build_control_errors(
+            band_differences,
+            brightness_difference,
+        )
+
+        suggestions = generate_next_suggestion(
+            control_errors,
+            rig_controls,
+            previous_attempt_data,
+        )
+
 
 
 
         return {
             "success": True,
 
-            "alignment_points": len(warping_path),
-            "confident_alignment_points": len(confident_path),
-            "collapsed_alignment_points": len(collapsed_path),
-
-            "median_chroma_similarity": float(
-                np.median(similarities)
-            ),
+            # your existing stuff...
 
             "brightness_difference_hz": brightness_difference,
             "band_differences": band_differences,
 
+            "tone_closeness": tone_closeness,
+
+            "control_errors": control_errors,
             "suggestions": suggestions,
+
+            "attempt": {
+                "rigControls": rig_controls,
+                "errors": control_errors,
+                "toneCloseness": tone_closeness,
+            },
         }
