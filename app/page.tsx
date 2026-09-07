@@ -83,6 +83,8 @@ function Knob({
   );
 }
 const supabase = createClient();
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 export default function Home() {;
   const [previousAttempt, setPreviousAttempt] = useState<AnalysisAttempt | null>(null);
@@ -390,10 +392,13 @@ export default function Home() {;
       );
     }
     try {
-      const response = await fetch("http://localhost:8000/analyze-tone", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${API_URL}/analyze-tone`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Tone analysis failed");
@@ -708,7 +713,7 @@ export default function Home() {;
           <button
             onClick={saveRig}
             disabled={saveStatus === "saving"}
-            className={`rounded-lg px-6 py-3 font-semibold transition ${
+            className={`mb-10 rounded-lg bg-white px-6 py-3 font-semibold text-black ${
               saveStatus === "saved"
                 ? "bg-green-500 text-black"
                 : saveStatus === "error"
