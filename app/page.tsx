@@ -15,7 +15,7 @@ export default function LandingPage() {
 
             <div>
               <p className="font-semibold leading-none">
-                Tone Finder
+                Toneffx
               </p>
 
               <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
@@ -63,7 +63,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-neutral-300">
-              Upload a reference tone, record your guitar, and Tone Finder
+              Upload a reference tone, record your guitar, and Toneffx
               analyzes how they differ. It aligns the performances, measures
               their audio characteristics, and tells you which controls to
               adjust.
@@ -119,7 +119,7 @@ export default function LandingPage() {
             </h2>
 
             <p className="mt-5 text-neutral-400">
-              You play. Tone Finder handles the signal processing.
+              You play. Toneffx handles the signal processing.
             </p>
           </div>
 
@@ -127,7 +127,7 @@ export default function LandingPage() {
             <Step
               number="01"
               title="Choose your controls"
-              description="Tell Tone Finder which knobs actually exist on your setup."
+              description="Tell Toneffx which knobs actually exist on your setup."
             />
 
             <Step
@@ -173,7 +173,7 @@ export default function LandingPage() {
             </h2>
 
             <p className="mt-6 leading-7 text-neutral-400">
-              Tone Finder uses pitch information to identify corresponding
+              Toneffx uses pitch information to identify corresponding
               moments between two performances, then dynamically aligns them
               before comparing their spectral characteristics.
             </p>
@@ -305,7 +305,7 @@ export default function LandingPage() {
               </h2>
 
               <p className="mt-6 max-w-xl leading-7 text-neutral-400">
-                You do not need an account to use Tone Finder. Creating one
+                You do not need an account to use Toneffx. Creating one
                 simply lets you save your rig configuration, available controls,
                 and current settings so you do not have to rebuild your setup
                 every time.
@@ -384,14 +384,14 @@ export default function LandingPage() {
             href="/tone"
             className="mt-9 inline-block rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:scale-[1.03]"
           >
-            Open Tone Finder
+            Open Toneffx
           </Link>
 
         </div>
       </section>
 
       <footer className="border-t border-white/5 bg-black px-6 py-8 text-center text-sm text-neutral-700">
-        Tone Finder
+        Toneffx
       </footer>
 
       {/* animations */}
