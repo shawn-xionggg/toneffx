@@ -14,7 +14,7 @@ export default function LandingPage() {
 
             <div>
               <p className="font-semibold leading-none">
-                Tone Finder
+                Toneffx
               </p>
               <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
                 Guitar Tone Matching
@@ -56,7 +56,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="mt-7 max-w-2xl text-lg leading-8 text-neutral-400">
-            Upload a reference tone, record your own guitar, and Tone Finder
+            Upload a reference tone, record your own guitar, and Toneffx
             analyzes the difference between them. It aligns your performances,
             compares their audio characteristics, and recommends which available
             controls to adjust.
@@ -105,7 +105,7 @@ export default function LandingPage() {
             <Step
               number="01"
               title="Choose your controls"
-              description="Tell Tone Finder which knobs or parameters are actually available on your rig."
+              description="Tell Toneffx which knobs or parameters are actually available on your rig."
             />
 
             <Step
@@ -143,7 +143,7 @@ export default function LandingPage() {
             </h2>
 
             <p className="mt-6 leading-7 text-neutral-400">
-              Tone Finder analyzes pitch information and aligns corresponding
+              Toneffx analyzes pitch information and aligns corresponding
               parts of the two performances before comparing their tone. This
               lets it handle differences in timing rather than simply comparing
               the recordings sample by sample.
@@ -186,7 +186,7 @@ export default function LandingPage() {
               </h2>
 
               <p className="mt-6 max-w-xl leading-7 text-neutral-400">
-                You do not need an account to experiment with Tone Finder.
+                You do not need an account to experiment with Toneffx.
                 Creating one lets you save your rig configuration so you do not
                 have to re-enter your available controls and settings every time
                 you come back.
@@ -259,14 +259,14 @@ export default function LandingPage() {
             href="/tone"
             className="mt-8 inline-block rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:bg-neutral-200"
           >
-            Open Tone Finder
+            Open Toneffx
           </Link>
 
         </div>
       </section>
 
       <footer className="border-t border-neutral-900 px-6 py-8 text-center text-sm text-neutral-600">
-        Tone Finder
+        Toneffx
       </footer>
     </main>
   );
