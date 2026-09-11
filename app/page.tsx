@@ -40,8 +40,6 @@ export default function LandingPage() {
           </div>
         </div>
       </header>
-
-      {/* HERO */}
       <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#081425] via-[#090909] to-[#1c0b25]">
 
         <FlyingObjects />
@@ -584,7 +582,6 @@ function PipelineArrow() {
 /* ---------------- */
 /* DECORATIVE ICONS */
 /* ---------------- */
-
 function GuitarIcon({
   className,
 }: {
@@ -592,61 +589,181 @@ function GuitarIcon({
 }) {
   return (
     <svg
-      viewBox="0 0 260 100"
+      viewBox="0 0 340 120"
       className={className}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* guitar body */}
+      {/* BODY */}
       <path
-        d="M57 30
-           C40 13 13 20 17 44
-           C20 57 32 58 35 63
-           C25 73 36 92 55 84
-           C67 79 72 68 83 66
-           C94 65 99 70 110 65
-           L121 53
-           L105 37
-           C93 32 86 38 77 37
-           C68 36 65 33 57 30Z"
+        d="
+          M36 39
+          C19 29 9 36 13 51
+          C16 62 28 65 31 69
+
+          C21 76 22 91 34 98
+          C48 107 64 96 72 83
+
+          C79 72 88 68 105 70
+
+          C117 72 127 69 134 62
+
+          L145 51
+
+          L132 39
+
+          C123 32 112 31 101 36
+
+          C88 41 78 38 69 29
+
+          C58 18 43 21 36 39
+          Z
+        "
         fill="currentColor"
       />
 
-      {/* neck */}
+      {/* CUTAWAY */}
+      <path
+        d="
+          M107 40
+          C118 37 129 40 137 48
+          L126 56
+          C119 51 112 49 103 51
+          Z
+        "
+        fill="black"
+        opacity="0.25"
+      />
+
+      {/* NECK */}
+      <path
+        d="M126 46 L274 42 L274 57 L126 57 Z"
+        fill="currentColor"
+      />
+
+      {/* FRETBOARD */}
+      <path
+        d="M132 48 L272 45 L272 54 L132 54 Z"
+        fill="black"
+        opacity="0.28"
+      />
+
+      {/* FRETS */}
+      {[
+        155, 174, 192, 209, 225, 240, 254, 266,
+      ].map((x) => (
+        <line
+          key={x}
+          x1={x}
+          y1="45"
+          x2={x}
+          y2="56"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          opacity="0.6"
+        />
+      ))}
+
+      {/* HEADSTOCK */}
+      <path
+        d="
+          M271 40
+          L319 28
+          L330 34
+          L321 43
+          L334 50
+          L322 60
+          L272 57
+          Z
+        "
+        fill="currentColor"
+      />
+
+      {/* TUNERS */}
+      <circle cx="297" cy="34" r="3.5" fill="black" opacity="0.45" />
+      <circle cx="312" cy="31" r="3.5" fill="black" opacity="0.45" />
+      <circle cx="323" cy="39" r="3.5" fill="black" opacity="0.45" />
+
+      <circle cx="299" cy="55" r="3.5" fill="black" opacity="0.45" />
+      <circle cx="314" cy="55" r="3.5" fill="black" opacity="0.45" />
+
+      {/* PICKUPS */}
+      <rect
+        x="78"
+        y="47"
+        width="19"
+        height="9"
+        rx="2"
+        fill="black"
+        opacity="0.45"
+      />
+
       <rect
         x="103"
-        y="43"
-        width="112"
-        height="12"
-        rx="4"
-        fill="currentColor"
-      />
-
-      {/* headstock */}
-      <path
-        d="M210 39 L245 31 L253 41 L246 58 L211 55Z"
-        fill="currentColor"
-      />
-
-      {/* pickups */}
-      <rect
-        x="70"
-        y="45"
+        y="47"
         width="19"
-        height="5"
+        height="9"
+        rx="2"
+        fill="black"
+        opacity="0.45"
+      />
+
+      {/* BRIDGE */}
+      <rect
+        x="62"
+        y="47"
+        width="9"
+        height="11"
         rx="2"
         fill="black"
         opacity="0.4"
       />
 
-      <rect
-        x="94"
-        y="45"
-        width="15"
-        height="5"
-        rx="2"
+      {/* CONTROL KNOBS */}
+      <circle
+        cx="66"
+        cy="72"
+        r="4"
         fill="black"
-        opacity="0.4"
+        opacity="0.45"
+      />
+
+      <circle
+        cx="79"
+        cy="78"
+        r="4"
+        fill="black"
+        opacity="0.45"
+      />
+
+      {/* STRINGS */}
+      <line
+        x1="66"
+        y1="49"
+        x2="319"
+        y2="43"
+        stroke="white"
+        strokeWidth="1"
+        opacity="0.3"
+      />
+
+      <line
+        x1="66"
+        y1="53"
+        x2="319"
+        y2="49"
+        stroke="white"
+        strokeWidth="1"
+        opacity="0.3"
+      />
+
+      {/* OUTPUT JACK / SMALL DETAIL */}
+      <path
+        d="M43 74 L55 70"
+        stroke="black"
+        strokeWidth="3"
+        strokeLinecap="round"
+        opacity="0.35"
       />
     </svg>
   );
