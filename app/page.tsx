@@ -392,16 +392,23 @@ export default function Home() {;
       );
     }
     try {
-      const response = await fetch(
-        `${API_URL}/analyze-tone`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${API_URL}/analyze-tone`, {
+      method: "POST",
+      body: formData,
+    });
 
       if (!response.ok) {
-        throw new Error("Tone analysis failed");
+        const errorText = await response.text();
+
+        console.error(
+          "Backend error:",
+          response.status,
+          errorText
+        );
+
+        throw new Error(
+          `Tone analysis failed: ${response.status}`
+        );
       }
 
       const result = await response.json();
