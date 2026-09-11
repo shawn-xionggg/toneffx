@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-[#080808] text-white">
+    <main className="min-h-screen overflow-hidden bg-black text-white">
 
-      {/* Navbar */}
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-xl">
+      {/* NAVBAR */}
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white font-bold text-black">
@@ -14,15 +14,16 @@ export default function LandingPage() {
 
             <div>
               <p className="font-semibold leading-none">
-                Toneffx
+                Tone Finder
               </p>
+
               <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
                 Guitar Tone Matching
               </p>
             </div>
           </Link>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Link
               href="/login"
               className="text-sm text-neutral-400 transition hover:text-white"
@@ -40,166 +41,274 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="mx-auto flex min-h-screen max-w-6xl items-center px-6 pt-20">
-        <div className="max-w-4xl">
+      {/* HERO */}
+      <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#081425] via-[#090909] to-[#1c0b25]">
 
-          <div className="mb-6 inline-flex rounded-full border border-neutral-800 bg-neutral-900 px-4 py-2 text-xs uppercase tracking-[0.2em] text-neutral-400">
-            Audio analysis + adaptive tone matching
+        <FlyingObjects />
+
+        {/* glow */}
+        <div className="pointer-events-none absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[120px]" />
+
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl items-center px-6 pt-20">
+          <div className="max-w-4xl">
+
+            <div className="mb-6 inline-flex rounded-full border border-blue-400/20 bg-blue-400/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-blue-200">
+              Audio analysis + adaptive tone matching
+            </div>
+
+            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
+              Stop guessing.
+              <span className="block bg-gradient-to-r from-blue-300 via-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
+                Match the tone.
+              </span>
+            </h1>
+
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-neutral-300">
+              Upload a reference tone, record your guitar, and Tone Finder
+              analyzes how they differ. It aligns the performances, measures
+              their audio characteristics, and tells you which controls to
+              adjust.
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                href="/tone"
+                className="rounded-xl bg-white px-6 py-3 font-semibold text-black transition hover:scale-[1.02] hover:bg-neutral-200"
+              >
+                Try it without an account
+              </Link>
+
+              <a
+                href="#how-it-works"
+                className="rounded-xl border border-white/20 bg-white/5 px-6 py-3 font-semibold text-neutral-200 backdrop-blur transition hover:bg-white/10"
+              >
+                How it works
+              </a>
+            </div>
+
+            <p className="mt-4 text-sm text-neutral-500">
+              No account required.
+            </p>
           </div>
-
-          <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-            Get closer to the
-            <span className="block text-neutral-500">
-              guitar tone you want.
-            </span>
-          </h1>
-
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-neutral-400">
-            Upload a reference tone, record your own guitar, and Toneffx
-            analyzes the difference between them. It aligns your performances,
-            compares their audio characteristics, and recommends which available
-            controls to adjust.
-          </p>
-
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link
-              href="/tone"
-              className="rounded-xl bg-white px-6 py-3 font-semibold text-black transition hover:bg-neutral-200"
-            >
-              Try it without an account
-            </Link>
-
-            <a
-              href="#how-it-works"
-              className="rounded-xl border border-neutral-700 px-6 py-3 font-semibold text-neutral-300 transition hover:border-neutral-500 hover:text-white"
-            >
-              How it works
-            </a>
-          </div>
-
-          <p className="mt-4 text-sm text-neutral-600">
-            No account required to test the tone-matching workflow.
-          </p>
         </div>
       </section>
 
-      {/* How it works */}
+      {/* HOW IT WORKS */}
       <section
         id="how-it-works"
-        className="border-t border-neutral-900 bg-[#0b0b0b]"
+        className="relative overflow-hidden border-t border-white/5 bg-gradient-to-br from-[#10182a] to-[#151125]"
       >
+        <div className="pointer-events-none absolute -right-16 top-12 opacity-10">
+          <GuitarIcon className="h-52 w-96 rotate-12" />
+        </div>
+
         <div className="mx-auto max-w-6xl px-6 py-28">
 
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-300">
               How it works
             </p>
 
             <h2 className="mt-4 text-4xl font-semibold tracking-tight">
               From recording to recommendation.
             </h2>
+
+            <p className="mt-5 text-neutral-400">
+              You play. Tone Finder handles the signal processing.
+            </p>
           </div>
 
           <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             <Step
               number="01"
               title="Choose your controls"
-              description="Tell Toneffx which knobs or parameters are actually available on your rig."
+              description="Tell Tone Finder which knobs actually exist on your setup."
             />
 
             <Step
               number="02"
               title="Add a reference"
-              description="Upload the guitar tone or recording you want to get closer to."
+              description="Upload the guitar sound you want to match."
             />
 
             <Step
               number="03"
               title="Record your tone"
-              description="Play the same passage. Timing does not need to be exact."
+              description="Play the same passage. Your timing does not need to be perfect."
             />
 
             <Step
               number="04"
               title="Adjust and repeat"
-              description="Get a tone similarity score and an adjustment to try, then record again."
+              description="Get a match score and a suggested setting, then try again."
             />
           </div>
         </div>
       </section>
 
-      {/* Technical explanation */}
-      <section className="border-t border-neutral-900">
-        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-28 lg:grid-cols-2">
+      {/* UNDER THE HOOD */}
+      <section className="relative overflow-hidden border-t border-white/5 bg-gradient-to-br from-[#071716] via-[#091313] to-[#07121c]">
+
+        <div className="pointer-events-none absolute left-[-80px] top-1/3 opacity-10">
+          <WaveIcon className="h-40 w-80" />
+        </div>
+
+        <div className="mx-auto grid max-w-6xl gap-16 px-6 py-28 lg:grid-cols-2 lg:items-center">
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-300">
               Under the hood
             </p>
 
             <h2 className="mt-4 text-4xl font-semibold tracking-tight">
-              Your performances do not need to line up perfectly.
+              Play it differently.
+              <span className="block text-neutral-500">
+                We still line it up.
+              </span>
             </h2>
 
             <p className="mt-6 leading-7 text-neutral-400">
-              Toneffx analyzes pitch information and aligns corresponding
-              parts of the two performances before comparing their tone. This
-              lets it handle differences in timing rather than simply comparing
-              the recordings sample by sample.
+              Tone Finder uses pitch information to identify corresponding
+              moments between two performances, then dynamically aligns them
+              before comparing their spectral characteristics.
+            </p>
+
+            <p className="mt-4 leading-7 text-neutral-400">
+              That means you do not have to play every note at exactly the
+              same millisecond as the reference.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-8">
-            <div className="space-y-5 font-mono text-sm">
-              <PipelineItem text="Reference audio" />
-              <PipelineArrow />
-              <PipelineItem text="Performance alignment" />
-              <PipelineArrow />
-              <PipelineItem text="Spectral feature comparison" />
-              <PipelineArrow />
-              <PipelineItem text="Tone similarity score" />
-              <PipelineArrow />
-              <PipelineItem text="Suggested control adjustment" />
-            </div>
-          </div>
+          <div className="rounded-3xl border border-emerald-300/10 bg-black/30 p-8 shadow-2xl backdrop-blur">
 
+            <div className="space-y-4 font-mono text-sm">
+              <PipelineItem text="Reference audio + your recording" />
+              <PipelineArrow />
+              <PipelineItem text="Chroma feature extraction" />
+              <PipelineArrow />
+              <PipelineItem text="Dynamic Time Warping alignment" />
+              <PipelineArrow />
+              <PipelineItem text="Spectral comparison" />
+              <PipelineArrow />
+              <PipelineItem text="Tone similarity + adjustment" />
+            </div>
+
+          </div>
         </div>
       </section>
 
-      {/* Account section */}
-      <section className="border-t border-neutral-900 bg-neutral-950">
+      {/* MATCH SCORE */}
+      <section className="relative overflow-hidden border-t border-white/5 bg-gradient-to-br from-[#251409] via-[#17100c] to-[#1b0c0f]">
+
+        <div className="pointer-events-none absolute right-12 top-16 opacity-10">
+          <KnobIcon className="h-52 w-52" />
+        </div>
+
+        <div className="mx-auto max-w-6xl px-6 py-28">
+
+          <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
+
+            <div className="rounded-3xl border border-orange-300/10 bg-black/30 p-10">
+              <p className="text-xs uppercase tracking-[0.2em] text-orange-300">
+                Example result
+              </p>
+
+              <div className="mt-6 flex items-end gap-3">
+                <span className="text-7xl font-semibold">
+                  82
+                </span>
+                <span className="mb-2 text-2xl text-neutral-500">
+                  %
+                </span>
+              </div>
+
+              <div className="mt-7 h-2 overflow-hidden rounded-full bg-white/10">
+                <div className="h-full w-[82%] rounded-full bg-gradient-to-r from-orange-400 to-yellow-300" />
+              </div>
+
+              <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-5">
+                <p className="text-xs uppercase tracking-[0.15em] text-neutral-500">
+                  Suggested adjustment
+                </p>
+
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="font-semibold">
+                    Treble
+                  </span>
+
+                  <span className="font-mono text-lg">
+                    50 → 55
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-orange-300">
+                Iterative matching
+              </p>
+
+              <h2 className="mt-4 text-4xl font-semibold tracking-tight">
+                You might never hit 100%.
+                <span className="block text-neutral-500">
+                  That is the point.
+                </span>
+              </h2>
+
+              <p className="mt-6 leading-7 text-neutral-400">
+                Different guitars, pickups, amps, pedals, and recording setups
+                mean some tones cannot be reproduced perfectly.
+              </p>
+
+              <p className="mt-4 leading-7 text-neutral-400">
+                The similarity score gives you a measurable way to see whether
+                each adjustment is actually moving your sound closer.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ACCOUNT */}
+      <section className="relative overflow-hidden border-t border-white/5 bg-gradient-to-br from-[#170d1d] via-[#120d17] to-[#0c101d]">
+
+        <div className="pointer-events-none absolute -right-24 bottom-10 opacity-[0.08]">
+          <GuitarIcon className="h-64 w-[500px] -rotate-12" />
+        </div>
+
         <div className="mx-auto max-w-6xl px-6 py-32">
 
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
 
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-fuchsia-300">
                 Optional account
               </p>
 
               <h2 className="mt-4 text-4xl font-semibold tracking-tight">
                 Try it first.
                 <span className="block text-neutral-500">
-                  Save your setup later.
+                  Save your rig later.
                 </span>
               </h2>
 
               <p className="mt-6 max-w-xl leading-7 text-neutral-400">
-                You do not need an account to experiment with Toneffx.
-                Creating one lets you save your rig configuration so you do not
-                have to re-enter your available controls and settings every time
-                you come back.
+                You do not need an account to use Tone Finder. Creating one
+                simply lets you save your rig configuration, available controls,
+                and current settings so you do not have to rebuild your setup
+                every time.
               </p>
 
               <div className="mt-8 space-y-4">
-                <Benefit text="Save your current rig controls and values" />
-                <Benefit text="Reload your setup on future visits" />
-                <Benefit text="Keep your configuration tied to your account" />
+                <Benefit text="Save your available controls" />
+                <Benefit text="Remember your current rig settings" />
+                <Benefit text="Load your configuration when you return" />
               </div>
             </div>
 
-            <div className="rounded-2xl border border-neutral-800 bg-[#111111] p-8 sm:p-10">
+            <div className="rounded-3xl border border-fuchsia-300/10 bg-black/30 p-8 shadow-2xl backdrop-blur sm:p-10">
+
               <p className="text-sm font-medium text-neutral-400">
                 Want to keep your setup?
               </p>
@@ -209,20 +318,20 @@ export default function LandingPage() {
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-neutral-500">
-                Your saved rig stays available when you return, while you can
-                still use the core tone analysis without signing up.
+                Save your rig for later, or skip the account entirely and
+                start matching tones immediately.
               </p>
 
               <Link
                 href="/signup"
-                className="mt-8 block w-full rounded-xl bg-white px-5 py-3 text-center font-semibold text-black transition hover:bg-neutral-200"
+                className="mt-8 block w-full rounded-xl bg-white px-5 py-3 text-center font-semibold text-black transition hover:scale-[1.01] hover:bg-neutral-200"
               >
                 Create account
               </Link>
 
               <Link
                 href="/tone"
-                className="mt-3 block w-full rounded-xl border border-neutral-700 px-5 py-3 text-center font-semibold text-neutral-300 transition hover:border-neutral-500 hover:text-white"
+                className="mt-3 block w-full rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-center font-semibold text-neutral-300 transition hover:bg-white/10 hover:text-white"
               >
                 Continue without account
               </Link>
@@ -236,39 +345,168 @@ export default function LandingPage() {
                   Log in
                 </Link>
               </p>
-            </div>
 
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="border-t border-neutral-900">
-        <div className="mx-auto max-w-6xl px-6 py-28 text-center">
+      {/* FINAL CTA */}
+      <section className="relative overflow-hidden border-t border-white/5 bg-gradient-to-r from-[#07111f] via-[#11101b] to-[#1c0b20]">
 
-          <h2 className="text-4xl font-semibold tracking-tight">
-            Hear the difference. Measure the difference.
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(100,100,255,0.08),transparent_60%)]" />
+
+        <div className="relative z-10 mx-auto max-w-6xl px-6 py-32 text-center">
+
+          <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+            Hear the difference.
+            <span className="block text-neutral-500">
+              Measure the difference.
+            </span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-neutral-500">
-            Start with a reference recording and see how close your current
-            setup can get.
+          <p className="mx-auto mt-5 max-w-xl text-neutral-400">
+            Upload a reference and see how close your current setup can get.
           </p>
 
           <Link
             href="/tone"
-            className="mt-8 inline-block rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:bg-neutral-200"
+            className="mt-9 inline-block rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:scale-[1.03]"
           >
-            Open Toneffx
+            Open Tone Finder
           </Link>
 
         </div>
       </section>
 
-      <footer className="border-t border-neutral-900 px-6 py-8 text-center text-sm text-neutral-600">
-        Toneffx
+      <footer className="border-t border-white/5 bg-black px-6 py-8 text-center text-sm text-neutral-700">
+        Tone Finder
       </footer>
+
+      {/* animations */}
+      <style>{`
+        @keyframes flyAcross {
+          0% {
+            transform: translateX(-25vw) translateY(0px) rotate(-15deg);
+          }
+
+          35% {
+            transform: translateX(35vw) translateY(-30px) rotate(4deg);
+          }
+
+          70% {
+            transform: translateX(80vw) translateY(20px) rotate(14deg);
+          }
+
+          100% {
+            transform: translateX(130vw) translateY(-10px) rotate(24deg);
+          }
+        }
+
+        @keyframes flyReverse {
+          0% {
+            transform: translateX(125vw) translateY(0px) rotate(16deg);
+          }
+
+          50% {
+            transform: translateX(45vw) translateY(35px) rotate(-4deg);
+          }
+
+          100% {
+            transform: translateX(-35vw) translateY(-20px) rotate(-20deg);
+          }
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) rotate(-4deg);
+          }
+
+          50% {
+            transform: translateY(-25px) rotate(5deg);
+          }
+        }
+
+        .fly-across {
+          animation-name: flyAcross;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+
+        .fly-reverse {
+          animation-name: flyReverse;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+
+        .float-object {
+          animation: float 6s ease-in-out infinite;
+        }
+      `}</style>
+
     </main>
+  );
+}
+
+
+function FlyingObjects() {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+
+      {/* guitar 1 */}
+      <div
+        className="fly-across absolute top-[17%] opacity-25"
+        style={{
+          animationDuration: "22s",
+          animationDelay: "-4s",
+        }}
+      >
+        <GuitarIcon className="h-24 w-52" />
+      </div>
+
+      {/* guitar 2 */}
+      <div
+        className="fly-reverse absolute top-[68%] opacity-15"
+        style={{
+          animationDuration: "30s",
+          animationDelay: "-12s",
+        }}
+      >
+        <GuitarIcon className="h-32 w-72" />
+      </div>
+
+      {/* smaller guitar */}
+      <div
+        className="fly-across absolute top-[44%] opacity-10"
+        style={{
+          animationDuration: "36s",
+          animationDelay: "-20s",
+        }}
+      >
+        <GuitarIcon className="h-16 w-40" />
+      </div>
+
+      {/* floating pick */}
+      <div className="float-object absolute right-[10%] top-[20%] opacity-20">
+        <PickIcon className="h-20 w-20" />
+      </div>
+
+      {/* waveform */}
+      <div className="float-object absolute bottom-[14%] left-[8%] opacity-15">
+        <WaveIcon className="h-24 w-52" />
+      </div>
+
+      {/* knob */}
+      <div
+        className="float-object absolute bottom-[18%] right-[16%] opacity-15"
+        style={{
+          animationDelay: "-3s",
+        }}
+      >
+        <KnobIcon className="h-20 w-20" />
+      </div>
+
+    </div>
   );
 }
 
@@ -283,8 +521,9 @@ function Step({
   description: string;
 }) {
   return (
-    <div className="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-6">
-      <p className="font-mono text-xs text-neutral-600">
+    <div className="group rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.07]">
+
+      <p className="font-mono text-xs text-blue-300/70">
         {number}
       </p>
 
@@ -292,9 +531,10 @@ function Step({
         {title}
       </h3>
 
-      <p className="mt-3 text-sm leading-6 text-neutral-500">
+      <p className="mt-3 text-sm leading-6 text-neutral-400">
         {description}
       </p>
+
     </div>
   );
 }
@@ -307,11 +547,13 @@ function Benefit({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="h-2 w-2 rounded-full bg-white" />
+
+      <div className="h-2 w-2 rounded-full bg-fuchsia-300" />
 
       <p className="text-sm text-neutral-300">
         {text}
       </p>
+
     </div>
   );
 }
@@ -323,7 +565,7 @@ function PipelineItem({
   text: string;
 }) {
   return (
-    <div className="rounded-lg border border-neutral-800 bg-neutral-950 px-5 py-4 text-neutral-300">
+    <div className="rounded-xl border border-emerald-300/10 bg-black/30 px-5 py-4 text-neutral-300">
       {text}
     </div>
   );
@@ -332,8 +574,170 @@ function PipelineItem({
 
 function PipelineArrow() {
   return (
-    <div className="pl-5 text-neutral-700">
+    <div className="pl-5 text-emerald-300/30">
       ↓
     </div>
+  );
+}
+
+
+/* ---------------- */
+/* DECORATIVE ICONS */
+/* ---------------- */
+
+function GuitarIcon({
+  className,
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 100"
+      className={className}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* guitar body */}
+      <path
+        d="M57 30
+           C40 13 13 20 17 44
+           C20 57 32 58 35 63
+           C25 73 36 92 55 84
+           C67 79 72 68 83 66
+           C94 65 99 70 110 65
+           L121 53
+           L105 37
+           C93 32 86 38 77 37
+           C68 36 65 33 57 30Z"
+        fill="currentColor"
+      />
+
+      {/* neck */}
+      <rect
+        x="103"
+        y="43"
+        width="112"
+        height="12"
+        rx="4"
+        fill="currentColor"
+      />
+
+      {/* headstock */}
+      <path
+        d="M210 39 L245 31 L253 41 L246 58 L211 55Z"
+        fill="currentColor"
+      />
+
+      {/* pickups */}
+      <rect
+        x="70"
+        y="45"
+        width="19"
+        height="5"
+        rx="2"
+        fill="black"
+        opacity="0.4"
+      />
+
+      <rect
+        x="94"
+        y="45"
+        width="15"
+        height="5"
+        rx="2"
+        fill="black"
+        opacity="0.4"
+      />
+    </svg>
+  );
+}
+
+
+function PickIcon({
+  className,
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      className={className}
+      fill="currentColor"
+    >
+      <path
+        d="M50 88
+           C42 88 15 51 15 31
+           C15 14 33 9 50 9
+           C67 9 85 14 85 31
+           C85 51 58 88 50 88Z"
+      />
+    </svg>
+  );
+}
+
+
+function WaveIcon({
+  className,
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 240 80"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="6"
+      strokeLinecap="round"
+    >
+      <path d="M5 40 H25" />
+      <path d="M35 30 V50" />
+      <path d="M50 18 V62" />
+      <path d="M65 5 V75" />
+      <path d="M80 24 V56" />
+      <path d="M95 33 V47" />
+      <path d="M110 16 V64" />
+      <path d="M125 8 V72" />
+      <path d="M140 24 V56" />
+      <path d="M155 34 V46" />
+      <path d="M170 20 V60" />
+      <path d="M185 8 V72" />
+      <path d="M200 25 V55" />
+      <path d="M215 34 V46" />
+      <path d="M225 40 H238" />
+    </svg>
+  );
+}
+
+
+function KnobIcon({
+  className,
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      className={className}
+      fill="none"
+    >
+      <circle
+        cx="50"
+        cy="50"
+        r="38"
+        stroke="currentColor"
+        strokeWidth="7"
+      />
+
+      <line
+        x1="50"
+        y1="50"
+        x2="68"
+        y2="28"
+        stroke="currentColor"
+        strokeWidth="7"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
