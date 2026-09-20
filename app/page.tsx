@@ -3,13 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 export default function LandingPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-black text-white">
+    <main className="min-h-screen overflow-hidden bg-[#f5f1e7] text-[#303b2d]">
 
       {/* NAVBAR */}
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl">
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#cdd5c2] bg-[#f5f1e7]/95">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white font-bold text-black">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#d4dfc6] font-bold text-[#303b2d]">
               T
             </div>
 
@@ -18,7 +18,7 @@ export default function LandingPage() {
                 Toneffx
               </p>
 
-              <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
+              <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-[#606b58]">
                 Guitar Tone Matching
               </p>
             </div>
@@ -27,42 +27,42 @@ export default function LandingPage() {
           <div className="flex items-center gap-4">
             <Link
               href="/login"
-              className="text-sm text-neutral-400 transition hover:text-white"
+              className="text-sm text-[#606b58] transition hover:text-[#303b2d]"
             >
               Log in
             </Link>
 
             <Link
               href="/signup"
-              className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-neutral-200"
+              className="rounded-lg bg-[#d4dfc6] px-4 py-2 text-sm font-semibold text-[#303b2d] transition hover:bg-[#c3d2b3]"
             >
               Create account
             </Link>
           </div>
         </div>
       </header>
-      <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#081425] via-[#090909] to-[#1c0b25]">
+      <section className="relative min-h-screen overflow-hidden bg-[#f5f1e7]">
 
         <FlyingObjects />
 
-        {/* glow */}
-        <div className="pointer-events-none absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[120px]" />
+        {/* Soft sage backdrop */}
+        <div className="pointer-events-none absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#d4dfc6]/40 blur-[120px]" />
 
         <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl items-center px-6 pt-20">
           <div className="max-w-4xl">
 
-            <div className="mb-6 inline-flex rounded-full border border-blue-400/20 bg-blue-400/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-blue-200">
+            <div className="mb-6 inline-flex rounded-full border border-[#c5d0b9] bg-[#e5ebdc] px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#58704e]">
               Audio analysis + adaptive tone matching
             </div>
 
             <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
               Stop guessing.
-              <span className="block bg-gradient-to-r from-blue-300 via-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
+              <span className="block text-[#58704e]">
                 Match the tone.
               </span>
             </h1>
 
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-neutral-300">
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#606b58]">
               Upload a reference tone, record your guitar, and Toneffx
               analyzes how they differ. It aligns the performances, measures
               their audio characteristics, and tells you which controls to
@@ -72,20 +72,20 @@ export default function LandingPage() {
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 href="/tone"
-                className="rounded-xl bg-white px-6 py-3 font-semibold text-black transition hover:scale-[1.02] hover:bg-neutral-200"
+                className="rounded-xl bg-[#d4dfc6] px-6 py-3 font-semibold text-[#303b2d] transition hover:scale-[1.02] hover:bg-[#c3d2b3]"
               >
                 Try it without an account
               </Link>
 
               <a
                 href="#how-it-works"
-                className="rounded-xl border border-white/20 bg-white/5 px-6 py-3 font-semibold text-neutral-200 backdrop-blur transition hover:bg-white/10"
+                className="rounded-xl border border-[#cdd5c2] bg-[#f8f5ec] px-6 py-3 font-semibold text-[#606b58] transition hover:bg-[#e5ebdc]"
               >
                 How it works
               </a>
             </div>
 
-            <p className="mt-4 text-sm text-neutral-500">
+            <p className="mt-4 text-sm text-[#606b58]">
               No account required.
             </p>
           </div>
@@ -95,7 +95,7 @@ export default function LandingPage() {
       {/* HOW IT WORKS */}
       <section
         id="how-it-works"
-        className="relative overflow-hidden border-t border-white/5 bg-gradient-to-br from-[#10182a] to-[#151125]"
+        className="relative overflow-hidden border-t border-[#cdd5c2] bg-[#e5ebdc]"
       >
         <div className="pointer-events-none absolute -right-16 top-12 opacity-10">
           <Image
@@ -103,14 +103,14 @@ export default function LandingPage() {
             alt=""
             width={650}
             height={260}
-            className="w-96 rotate-12 opacity-40 mix-blend-screen"
+            className="w-96 rotate-12 opacity-40 mix-blend-multiply grayscale"
             />
         </div>
 
         <div className="mx-auto max-w-6xl px-6 py-28">
 
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-300">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#58704e]">
               How it works
             </p>
 
@@ -118,7 +118,7 @@ export default function LandingPage() {
               From recording to recommendation.
             </h2>
 
-            <p className="mt-5 text-neutral-400">
+            <p className="mt-5 text-[#606b58]">
               You play. Toneffx handles the signal processing.
             </p>
           </div>
@@ -152,7 +152,7 @@ export default function LandingPage() {
       </section>
 
       {/* UNDER THE HOOD */}
-      <section className="relative overflow-hidden border-t border-white/5 bg-gradient-to-br from-[#071716] via-[#091313] to-[#07121c]">
+      <section className="relative overflow-hidden border-t border-[#cdd5c2] bg-[#f5f1e7]">
 
         <div className="pointer-events-none absolute left-[-80px] top-1/3 opacity-10">
           <WaveIcon className="h-40 w-80" />
@@ -161,30 +161,30 @@ export default function LandingPage() {
         <div className="mx-auto grid max-w-6xl gap-16 px-6 py-28 lg:grid-cols-2 lg:items-center">
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-300">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#58704e]">
               Under the hood
             </p>
 
             <h2 className="mt-4 text-4xl font-semibold tracking-tight">
               Play it differently.
-              <span className="block text-neutral-500">
+              <span className="block text-[#606b58]">
                 We still line it up.
               </span>
             </h2>
 
-            <p className="mt-6 leading-7 text-neutral-400">
+            <p className="mt-6 leading-7 text-[#606b58]">
               Toneffx uses pitch information to identify corresponding
               moments between two performances, then dynamically aligns them
               before comparing their spectral characteristics.
             </p>
 
-            <p className="mt-4 leading-7 text-neutral-400">
+            <p className="mt-4 leading-7 text-[#606b58]">
               That means you do not have to play every note at exactly the
               same millisecond as the reference.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-emerald-300/10 bg-black/30 p-8 shadow-2xl backdrop-blur">
+          <div className="rounded-3xl border border-[#cdd5c2] bg-[#f8f5ec] p-8 shadow-sm">
 
             <div className="space-y-4 font-mono text-sm">
               <PipelineItem text="Reference audio + your recording" />
@@ -203,7 +203,7 @@ export default function LandingPage() {
       </section>
 
       {/* MATCH SCORE */}
-      <section className="relative overflow-hidden border-t border-white/5 bg-gradient-to-br from-[#251409] via-[#17100c] to-[#1b0c0f]">
+      <section className="relative overflow-hidden border-t border-[#cdd5c2] bg-[#eee9db]">
 
         <div className="pointer-events-none absolute right-12 top-16 opacity-10">
           <KnobIcon className="h-52 w-52" />
@@ -213,8 +213,8 @@ export default function LandingPage() {
 
           <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
 
-            <div className="rounded-3xl border border-orange-300/10 bg-black/30 p-10">
-              <p className="text-xs uppercase tracking-[0.2em] text-orange-300">
+            <div className="rounded-3xl border border-[#cdd5c2] bg-[#f8f5ec] p-10">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#58704e]">
                 Example result
               </p>
 
@@ -222,17 +222,17 @@ export default function LandingPage() {
                 <span className="text-7xl font-semibold">
                   82
                 </span>
-                <span className="mb-2 text-2xl text-neutral-500">
+                <span className="mb-2 text-2xl text-[#606b58]">
                   %
                 </span>
               </div>
 
-              <div className="mt-7 h-2 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full w-[82%] rounded-full bg-gradient-to-r from-orange-400 to-yellow-300" />
+              <div className="mt-7 h-2 overflow-hidden rounded-full bg-[#dce3d2]">
+                <div className="h-full w-[82%] rounded-full bg-[#7e946d]" />
               </div>
 
-              <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-5">
-                <p className="text-xs uppercase tracking-[0.15em] text-neutral-500">
+              <div className="mt-8 rounded-xl border border-[#cdd5c2] bg-[#f8f5ec] p-5">
+                <p className="text-xs uppercase tracking-[0.15em] text-[#606b58]">
                   Suggested adjustment
                 </p>
 
@@ -249,23 +249,23 @@ export default function LandingPage() {
             </div>
 
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-orange-300">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#58704e]">
                 Iterative matching
               </p>
 
               <h2 className="mt-4 text-4xl font-semibold tracking-tight">
                 You might never hit 100%.
-                <span className="block text-neutral-500">
+                <span className="block text-[#606b58]">
                   That is the point.
                 </span>
               </h2>
 
-              <p className="mt-6 leading-7 text-neutral-400">
+              <p className="mt-6 leading-7 text-[#606b58]">
                 Different guitars, pickups, amps, pedals, and recording setups
                 mean some tones cannot be reproduced perfectly.
               </p>
 
-              <p className="mt-4 leading-7 text-neutral-400">
+              <p className="mt-4 leading-7 text-[#606b58]">
                 The similarity score gives you a measurable way to see whether
                 each adjustment is actually moving your sound closer.
               </p>
@@ -276,7 +276,7 @@ export default function LandingPage() {
       </section>
 
       {/* ACCOUNT */}
-      <section className="relative overflow-hidden border-t border-white/5 bg-gradient-to-br from-[#170d1d] via-[#120d17] to-[#0c101d]">
+      <section className="relative overflow-hidden border-t border-[#cdd5c2] bg-[#e5ebdc]">
 
         <div className="pointer-events-none absolute -right-24 bottom-10 opacity-[0.08]">
           <Image
@@ -284,7 +284,7 @@ export default function LandingPage() {
             alt=""
             width={650}
             height={260}
-            className="w-96 rotate-12 opacity-40 mix-blend-screen"
+            className="w-96 rotate-12 opacity-40 mix-blend-multiply grayscale"
             />
         </div>
 
@@ -293,18 +293,18 @@ export default function LandingPage() {
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
 
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-fuchsia-300">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#58704e]">
                 Optional account
               </p>
 
               <h2 className="mt-4 text-4xl font-semibold tracking-tight">
                 Try it first.
-                <span className="block text-neutral-500">
+                <span className="block text-[#606b58]">
                   Save your rig later.
                 </span>
               </h2>
 
-              <p className="mt-6 max-w-xl leading-7 text-neutral-400">
+              <p className="mt-6 max-w-xl leading-7 text-[#606b58]">
                 You do not need an account to use Toneffx. Creating one
                 simply lets you save your rig configuration, available controls,
                 and current settings so you do not have to rebuild your setup
@@ -318,9 +318,9 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-fuchsia-300/10 bg-black/30 p-8 shadow-2xl backdrop-blur sm:p-10">
+            <div className="rounded-3xl border border-[#cdd5c2] bg-[#f8f5ec] p-8 shadow-sm sm:p-10">
 
-              <p className="text-sm font-medium text-neutral-400">
+              <p className="text-sm font-medium text-[#606b58]">
                 Want to keep your setup?
               </p>
 
@@ -328,30 +328,30 @@ export default function LandingPage() {
                 Create a free account.
               </h3>
 
-              <p className="mt-3 text-sm leading-6 text-neutral-500">
+              <p className="mt-3 text-sm leading-6 text-[#606b58]">
                 Save your rig for later, or skip the account entirely and
                 start matching tones immediately.
               </p>
 
               <Link
                 href="/signup"
-                className="mt-8 block w-full rounded-xl bg-white px-5 py-3 text-center font-semibold text-black transition hover:scale-[1.01] hover:bg-neutral-200"
+                className="mt-8 block w-full rounded-xl bg-[#d4dfc6] px-5 py-3 text-center font-semibold text-[#303b2d] transition hover:scale-[1.01] hover:bg-[#c3d2b3]"
               >
                 Create account
               </Link>
 
               <Link
                 href="/tone"
-                className="mt-3 block w-full rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-center font-semibold text-neutral-300 transition hover:bg-white/10 hover:text-white"
+                className="mt-3 block w-full rounded-xl border border-[#cdd5c2] bg-[#f8f5ec] px-5 py-3 text-center font-semibold text-[#606b58] transition hover:bg-[#e5ebdc] hover:text-[#303b2d]"
               >
                 Continue without account
               </Link>
 
-              <p className="mt-5 text-center text-xs text-neutral-600">
+              <p className="mt-5 text-center text-xs text-[#606b58]">
                 Already have an account?{" "}
                 <Link
                   href="/login"
-                  className="text-neutral-400 hover:text-white"
+                  className="text-[#606b58] hover:text-[#303b2d]"
                 >
                   Log in
                 </Link>
@@ -363,26 +363,26 @@ export default function LandingPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="relative overflow-hidden border-t border-white/5 bg-gradient-to-r from-[#07111f] via-[#11101b] to-[#1c0b20]">
+      <section className="relative overflow-hidden border-t border-[#cdd5c2] bg-[#f5f1e7]">
 
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(100,100,255,0.08),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[#e5ebdc]/40" />
 
         <div className="relative z-10 mx-auto max-w-6xl px-6 py-32 text-center">
 
           <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
             Hear the difference.
-            <span className="block text-neutral-500">
+            <span className="block text-[#606b58]">
               Measure the difference.
             </span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-xl text-neutral-400">
+          <p className="mx-auto mt-5 max-w-xl text-[#606b58]">
             Upload a reference and see how close your current setup can get.
           </p>
 
           <Link
             href="/tone"
-            className="mt-9 inline-block rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:scale-[1.03]"
+            className="mt-9 inline-block rounded-xl bg-[#d4dfc6] px-7 py-3 font-semibold text-[#303b2d] transition hover:scale-[1.03]"
           >
             Open Toneffx
           </Link>
@@ -390,7 +390,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="border-t border-white/5 bg-black px-6 py-8 text-center text-sm text-neutral-700">
+      <footer className="border-t border-[#cdd5c2] bg-[#f5f1e7] px-6 py-8 text-center text-sm text-[#606b58]">
         Toneffx
       </footer>
 
@@ -466,7 +466,7 @@ function FlyingObjects() {
 
       {/* guitar 1 */}
       <div
-        className="fly-across absolute top-[16%] opacity-35 mix-blend-screen"
+        className="fly-across absolute top-[16%] opacity-35 mix-blend-multiply grayscale"
         style={{
           animationDuration: "22s",
           animationDelay: "-4s",
@@ -484,7 +484,7 @@ function FlyingObjects() {
 
       {/* guitar 2 */}
       <div
-        className="fly-reverse absolute top-[67%] opacity-20 mix-blend-screen"
+        className="fly-reverse absolute top-[67%] opacity-20 mix-blend-multiply grayscale"
         style={{
           animationDuration: "30s",
           animationDelay: "-12s",
@@ -501,7 +501,7 @@ function FlyingObjects() {
 
       {/* smaller guitar */}
       <div
-        className="fly-across absolute top-[43%] opacity-15 mix-blend-screen"
+        className="fly-across absolute top-[43%] opacity-15 mix-blend-multiply grayscale"
         style={{
           animationDuration: "36s",
           animationDelay: "-20s",
@@ -550,9 +550,9 @@ function Step({
   description: string;
 }) {
   return (
-    <div className="group rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.07]">
+    <div className="group rounded-2xl border border-[#cdd5c2] bg-[#f8f5ec] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#a7b797] hover:bg-[#f0f2e7]">
 
-      <p className="font-mono text-xs text-blue-300/70">
+      <p className="font-mono text-xs text-[#58704e]">
         {number}
       </p>
 
@@ -560,7 +560,7 @@ function Step({
         {title}
       </h3>
 
-      <p className="mt-3 text-sm leading-6 text-neutral-400">
+      <p className="mt-3 text-sm leading-6 text-[#606b58]">
         {description}
       </p>
 
@@ -577,9 +577,9 @@ function Benefit({
   return (
     <div className="flex items-center gap-3">
 
-      <div className="h-2 w-2 rounded-full bg-fuchsia-300" />
+      <div className="h-2 w-2 rounded-full bg-[#7e946d]" />
 
-      <p className="text-sm text-neutral-300">
+      <p className="text-sm text-[#606b58]">
         {text}
       </p>
 
@@ -594,7 +594,7 @@ function PipelineItem({
   text: string;
 }) {
   return (
-    <div className="rounded-xl border border-emerald-300/10 bg-black/30 px-5 py-4 text-neutral-300">
+    <div className="rounded-xl border border-[#cdd5c2] bg-[#f8f5ec] px-5 py-4 text-[#606b58]">
       {text}
     </div>
   );
@@ -603,7 +603,7 @@ function PipelineItem({
 
 function PipelineArrow() {
   return (
-    <div className="pl-5 text-emerald-300/30">
+    <div className="pl-5 text-[#58704e]">
       ↓
     </div>
   );
