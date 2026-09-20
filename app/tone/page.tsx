@@ -508,10 +508,10 @@ export default function Home() {;
 
         <div className="space-y-8">
           {/* Guitar */}
-          <section className="rounded-2xl border border-[#cdd5c2] bg-[#e5ebdc] p-7">
+          <section className="rounded-2xl border border-[#6e7a69] bg-[#414a3f] p-7 text-[#f5f1e7]">
             <div className="mb-8 flex items-center justify-between">
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-[#58704e]">
+                <p className="text-xs uppercase tracking-[0.2em] text-[#b8c9aa]">
                   Instrument
                 </p>
                 <h2 className="mt-1 text-2xl font-semibold">Guitar</h2>
@@ -521,7 +521,7 @@ export default function Home() {;
 
             {/* Pickup selector */}
             <div className="mb-10">
-              <p className="mb-4 text-sm font-medium text-[#303b2d]">
+              <p className="mb-4 text-sm font-medium text-[#e5ebdc]">
                 Pickup position
               </p>
 
@@ -537,7 +537,7 @@ export default function Home() {;
                     className={`rounded-full border px-4 py-2 text-sm transition ${
                       pickup === position
                         ? "border-[#58704e] bg-[#d4dfc6] text-[#303b2d]"
-                        : "border-[#cdd5c2] bg-[#f8f5ec] text-[#606b58] hover:border-[#58704e]"
+                        : "border-[#82907c] bg-[#566052] text-[#e5ebdc] hover:border-[#b8c9aa]"
                     }`}
                   >
                     {position}
@@ -548,7 +548,7 @@ export default function Home() {;
 
             {/* Guitar knobs */}
             <div>
-              <p className="mb-6 text-sm font-medium text-[#303b2d]">
+              <p className="mb-6 text-sm font-medium text-[#e5ebdc]">
                 Guitar controls
               </p>
                 <div className="mb-6 flex gap-3">
@@ -565,7 +565,7 @@ export default function Home() {;
                     className={`rounded-lg border px-4 py-2 text-sm font-semibold ${
                       guitarControls.tone1.enabled
                         ? "border-[#58704e] bg-[#d4dfc6] text-[#303b2d]"
-                        : "border-[#cdd5c2] bg-[#f8f5ec] text-[#606b58]"
+                        : "border-[#82907c] bg-[#566052] text-[#e5ebdc]"
                     }`}
                   >
                     Tone 1 {guitarControls.tone1.enabled ? "ON" : "OFF"}
@@ -584,7 +584,7 @@ export default function Home() {;
                     className={`rounded-lg border px-4 py-2 text-sm font-semibold ${
                       guitarControls.tone2.enabled
                         ? "border-[#58704e] bg-[#d4dfc6] text-[#303b2d]"
-                        : "border-[#cdd5c2] bg-[#f8f5ec] text-[#606b58]"
+                        : "border-[#82907c] bg-[#566052] text-[#e5ebdc]"
                     }`}
                   >
                     Tone 2 {guitarControls.tone2.enabled ? "ON" : "OFF"}
@@ -628,9 +628,9 @@ export default function Home() {;
           </section>
 
           {/* Adjustable rig controls */}
-          <section className="rounded-2xl border border-[#cdd5c2] bg-[#e5ebdc] p-7">
+          <section className="rounded-2xl border border-[#6e7a69] bg-[#414a3f] p-7 text-[#f5f1e7]">
             <div className="mb-8">
-              <p className="text-xs uppercase tracking-[0.2em] text-[#58704e]">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#b8c9aa]">
                 Rig controls
               </p>
 
@@ -638,7 +638,7 @@ export default function Home() {;
                 What can you adjust?
               </h2>
 
-              <p className="mt-2 max-w-2xl text-sm text-[#606b58]">
+              <p className="mt-2 max-w-2xl text-sm text-[#cdd5c2]">
                 Enable the controls available on your rig. Tone Finder will only suggest
                 changes to enabled controls.
               </p>
@@ -663,18 +663,18 @@ export default function Home() {;
                     key={name}
                     className={`rounded-xl border p-5 transition ${
                       control.enabled
-                        ? "border-[#c5d0b9] bg-[#f8f5ec]"
-                        : "border-[#cdd5c2] bg-[#f5f1e7]/50"
+                        ? "border-[#82907c] bg-[#566052]"
+                        : "border-[#6e7a69] bg-[#30382f]"
                     }`}
                   >
                     {/* Control header */}
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-semibold text-[#303b2d]">
+                        <p className="font-semibold text-[#f5f1e7]">
                           {label}
                         </p>
 
-                        <p className="mt-1 text-xs text-[#606b58]">
+                        <p className="mt-1 text-xs text-[#cdd5c2]">
                           {control.enabled
                             ? "Available for suggestions"
                             : "Not available"}
@@ -687,7 +687,7 @@ export default function Home() {;
                         className={`rounded-lg border px-3 py-2 text-xs font-semibold transition ${
                           control.enabled
                             ? "border-[#58704e] bg-[#d4dfc6] text-[#303b2d]"
-                            : "border-[#cdd5c2] bg-[#f5f1e7] text-[#606b58] hover:border-[#58704e]"
+                            : "border-[#82907c] bg-[#30382f] text-[#cdd5c2] hover:border-[#b8c9aa]"
                         }`}
                       >
                         {control.enabled ? "Enabled" : "Disabled"}
@@ -739,9 +739,9 @@ export default function Home() {;
           
         </div>
       </div>
-      <section className="rounded-2xl border border-[#cdd5c2] bg-[#e5ebdc] p-7">
+      <section className="rounded-2xl border border-[#6e7a69] bg-[#414a3f] p-7 text-[#f5f1e7]">
         <div className="mb-8">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#58704e]">
+          <p className="text-xs uppercase tracking-[0.2em] text-[#b8c9aa]">
             Tone Matching
           </p>
 
@@ -749,19 +749,19 @@ export default function Home() {;
             Match a reference tone
           </h2>
 
-          <p className="mt-2 text-sm text-[#606b58]">
+          <p className="mt-2 text-sm text-[#cdd5c2]">
             Upload the guitar tone you want, then record your current rig.
           </p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
           {/* Reference */}
-          <div className="rounded-xl border border-[#cdd5c2] bg-[#f8f5ec] p-5">
+          <div className="rounded-xl border border-[#82907c] bg-[#566052] p-5">
             <p className="mb-1 font-semibold">
               Reference audio
             </p>
 
-            <p className="mb-4 text-sm text-[#606b58]">
+            <p className="mb-4 text-sm text-[#cdd5c2]">
               Upload the tone you want to match.
             </p>
 
@@ -777,7 +777,7 @@ export default function Home() {;
 
             {referenceAudio && (
               <div className="mt-4">
-                <p className="mb-2 truncate text-sm text-[#606b58]">
+                <p className="mb-2 truncate text-sm text-[#cdd5c2]">
                   {referenceAudio.name}
                 </p>
 
@@ -791,12 +791,12 @@ export default function Home() {;
           </div>
 
           {/* Your tone */}
-          <div className="rounded-xl border border-[#cdd5c2] bg-[#f8f5ec] p-5">
+          <div className="rounded-xl border border-[#82907c] bg-[#566052] p-5">
             <p className="mb-1 font-semibold">
               Your tone
             </p>
 
-            <p className="mb-5 text-sm text-[#606b58]">
+            <p className="mb-5 text-sm text-[#cdd5c2]">
               Upload an existing guitar recording or record your current rig.
             </p>
 
@@ -817,7 +817,7 @@ export default function Home() {;
               {!isRecording ? (
                 <button
                   onClick={startRecording}
-                  className="rounded-lg border border-[#cdd5c2] bg-[#e5ebdc] px-4 py-2 text-sm font-semibold text-[#303b2d] transition hover:bg-[#d4dfc6]"
+                  className="rounded-lg border border-[#82907c] bg-[#414a3f] px-4 py-2 text-sm font-semibold text-[#f5f1e7] transition hover:bg-[#566052]"
                 >
                   Record now
                 </button>
@@ -840,7 +840,7 @@ export default function Home() {;
 
             {recordedAudio && !isRecording && (
               <div className="mt-5">
-                <p className="mb-2 truncate text-sm text-[#606b58]">
+                <p className="mb-2 truncate text-sm text-[#cdd5c2]">
                   {recordedAudioName}
                 </p>
 
@@ -855,7 +855,7 @@ export default function Home() {;
                     setRecordedAudio(null);
                     setRecordedAudioName("");
                   }}
-                  className="mt-3 text-xs text-[#606b58] hover:text-[#303b2d]"
+                  className="mt-3 text-xs text-[#cdd5c2] hover:text-[#f5f1e7]"
                 >
                   Remove recording
                 </button>
@@ -864,7 +864,7 @@ export default function Home() {;
           </div>
         </div>    
         {/* Analyze */}
-        <div className="mt-6 border-t border-[#cdd5c2] pt-6">
+        <div className="mt-6 border-t border-[#6e7a69] pt-6">
           <button
             disabled={
               !referenceAudio ||
@@ -878,28 +878,28 @@ export default function Home() {;
           </button>
 
           {!referenceAudio && (
-            <p className="mt-2 text-xs text-[#606b58]">
+            <p className="mt-2 text-xs text-[#cdd5c2]">
               Upload reference audio first.
             </p>
           )}
         </div>
           {toneCloseness !== null && (
-            <div className="mt-6 rounded-xl border border-[#cdd5c2] bg-[#f8f5ec] p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#58704e]">
+            <div className="mt-6 rounded-xl border border-[#82907c] bg-[#566052] p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b8c9aa]">
                 Tone match
               </p>
 
               <div className="mt-3 flex items-end gap-2">
-                <span className="text-4xl font-semibold text-[#303b2d]">
+                <span className="text-4xl font-semibold text-[#f5f1e7]">
                   {toneCloseness}
                 </span>
 
-                <span className="mb-1 text-lg text-[#606b58]">
+                <span className="mb-1 text-lg text-[#cdd5c2]">
                   %
                 </span>
               </div>
 
-              <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#cdd5c2]">
+              <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#30382f]">
                 <div
                   className="h-full rounded-full bg-[#58704e] transition-all duration-500"
                   style={{
@@ -911,8 +911,8 @@ export default function Home() {;
           )}
         {/* Suggestions */}
         {suggestions.length > 0 && (
-          <div className="mt-6 rounded-xl border border-[#cdd5c2] bg-[#f8f5ec] p-5">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#58704e]">
+          <div className="mt-6 rounded-xl border border-[#82907c] bg-[#566052] p-5">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#b8c9aa]">
               Suggested adjustments
             </p>
 
@@ -920,7 +920,7 @@ export default function Home() {;
               {suggestions.map((suggestion) => (
                 <div
                   key={suggestion.control}
-                  className="flex items-center justify-between rounded-lg border border-[#cdd5c2] bg-[#e5ebdc] p-4"
+                  className="flex items-center justify-between rounded-lg border border-[#6e7a69] bg-[#414a3f] p-4"
                 >
                   <div>
                     <p className="font-semibold capitalize">
@@ -929,7 +929,7 @@ export default function Home() {;
                         : suggestion.control}
                     </p>
 
-                    <p className="mt-1 text-sm text-[#606b58]">
+                    <p className="mt-1 text-sm text-[#cdd5c2]">
                       {suggestion.direction}
                     </p>
                   </div>
@@ -939,7 +939,7 @@ export default function Home() {;
                       {suggestion.current} → {suggestion.suggested}
                     </p>
 
-                    <p className="mt-1 text-xs text-[#606b58]">
+                    <p className="mt-1 text-xs text-[#cdd5c2]">
                       spectral difference {suggestion.difference.toFixed(2)}
                     </p>
                   </div>
