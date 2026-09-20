@@ -62,16 +62,16 @@ function Knob({
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
-        className="relative flex h-20 w-20 touch-none cursor-ns-resize select-none items-center justify-center rounded-full border-4 border-[#c5d0b9] bg-gradient-to-br from-[#d4dfc6] to-[#87927e] shadow-[inset_0_0_10px_rgba(255,255,255,0.45),0_5px_8px_rgba(48,59,45,0.25)]"
+        className="relative flex h-20 w-20 touch-none cursor-ns-resize select-none items-center justify-center rounded-full border-4 border-[#c5d0b9] bg-gradient-to-br from-black to-[#171b16] shadow-[inset_0_0_10px_rgba(255,255,255,0.2),0_5px_8px_rgba(48,59,45,0.35)]"
       >
         <div
-          className="absolute h-7 w-1 origin-bottom rounded-full bg-[#303b2d]"
+          className="absolute h-7 w-1 origin-bottom rounded-full bg-[#d4dfc6]"
           style={{
             transform: `translateY(-14px) rotate(${rotation}deg)`,
           }}
         />
 
-        <span className="mt-9 text-[10px] font-bold text-[#303b2d]">
+        <span className="mt-9 text-[10px] font-bold text-[#f5f1e7]">
           {value}
         </span>
       </div>
