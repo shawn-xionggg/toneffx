@@ -36,10 +36,10 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#111111] px-6 text-white">
-      <div className="w-full max-w-md rounded-2xl border border-neutral-800 bg-neutral-900 p-8 shadow-2xl">
+    <main className="flex min-h-screen items-center justify-center bg-[#f5f1e7] px-6 text-[#303b2d]">
+      <div className="w-full max-w-md rounded-2xl border border-[#cdd5c2] bg-[#f8f5ec] p-8 shadow-sm">
         <div className="mb-8">
-          <p className="mb-2 text-xs uppercase tracking-[0.25em] text-neutral-500">
+          <p className="mb-2 text-xs uppercase tracking-[0.25em] text-[#58704e]">
             Tone Finder
           </p>
 
@@ -47,14 +47,14 @@ export default function LoginPage() {
             Log in
           </h1>
 
-          <p className="mt-2 text-sm text-neutral-400">
+          <p className="mt-2 text-sm text-[#606b58]">
             Access your saved rigs and tone settings.
           </p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="mb-2 block text-sm font-medium text-neutral-300">
+            <label className="mb-2 block text-sm font-medium text-[#303b2d]">
               Email
             </label>
 
@@ -63,13 +63,13 @@ export default function LoginPage() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
-              className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 outline-none transition focus:border-neutral-500"
+              className="w-full rounded-lg border border-[#cdd5c2] bg-[#e5ebdc] px-4 py-3 text-[#303b2d] outline-none transition placeholder:text-[#87927e] focus:border-[#58704e]"
               placeholder="you@example.com"
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-neutral-300">
+            <label className="mb-2 block text-sm font-medium text-[#303b2d]">
               Password
             </label>
 
@@ -78,7 +78,7 @@ export default function LoginPage() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
-              className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 outline-none transition focus:border-neutral-500"
+              className="w-full rounded-lg border border-[#cdd5c2] bg-[#e5ebdc] px-4 py-3 text-[#303b2d] outline-none transition placeholder:text-[#87927e] focus:border-[#58704e]"
               placeholder="Enter your password"
             />
           </div>
@@ -86,13 +86,13 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-white px-4 py-3 font-semibold text-black transition hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full rounded-lg bg-[#d4dfc6] px-4 py-3 font-semibold text-[#303b2d] transition hover:bg-[#c3d2b3] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading ? "Logging in..." : "Log in"}
           </button>
 
           {message && (
-            <p className="text-sm text-neutral-300">
+            <p className="text-sm text-[#58704e]">
               {message}
             </p>
           )}
