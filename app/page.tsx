@@ -99,7 +99,7 @@ export default function LandingPage() {
       >
         <div className="pointer-events-none absolute -right-16 top-12 opacity-10">
           <Image
-            src="/guitar-sprite.png"
+            src="/guitar_sprite.png"
             alt=""
             width={650}
             height={260}
@@ -280,7 +280,7 @@ export default function LandingPage() {
 
         <div className="pointer-events-none absolute -right-24 bottom-10 opacity-[0.08]">
           <Image
-            src="/guitar-sprite.png"
+            src="/guitar_sprite.png"
             alt=""
             width={650}
             height={260}
@@ -473,7 +473,7 @@ function FlyingObjects() {
         }}
       >
         <Image
-          src="/guitar-sprite.png"
+          src="/guitar_sprite.png"
           alt=""
           width={650}
           height={260}
@@ -491,7 +491,7 @@ function FlyingObjects() {
         }}
       >
         <Image
-          src="/guitar-sprite.png"
+          src="/guitar_sprite.png"
           alt=""
           width={650}
           height={260}
@@ -508,7 +508,7 @@ function FlyingObjects() {
         }}
       >
         <Image
-          src="/guitar-sprite.png"
+          src="/guitar_sprite.png"
           alt=""
           width={650}
           height={260}
